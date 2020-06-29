@@ -20,11 +20,11 @@ var (
 func main() {
 	kingpin.Parse()
 
-	http.HandleFunc("/", HelloMetrics)
+	http.HandleFunc("/", HelloHeader)
 	http.ListenAndServe(":8080", nil)
 }
 
-func HelloMetrics(w http.ResponseWriter, r *http.Request) {
+func HelloHeader(w http.ResponseWriter, r *http.Request) {
 	size, ok := r.URL.Query()["size"]
 	s := 5000
 	if ok {
