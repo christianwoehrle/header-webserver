@@ -30,10 +30,18 @@ func HelloHeader(w http.ResponseWriter, r *http.Request) {
 	if ok {
 		s, _ = strconv.Atoi(string(size[0]))
 	}
+
+	status, ok := r.URL.Query()["status"]
+	sc := 200
+	if ok {
+		sc, _ = strconv.Atoi(string(status[0]))
+	}
+
 	header := ""
 	for i := 1; i < s; i++ {
 		header = header + "x"
 	}
 
 	w.Header().Set("h", header)
+	w.WriteHeader(sc)
 }
