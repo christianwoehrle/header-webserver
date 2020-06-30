@@ -2,6 +2,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -21,7 +22,7 @@ func main() {
 	kingpin.Parse()
 
 	http.HandleFunc("/", HelloHeader)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8082", nil)
 }
 
 func HelloHeader(w http.ResponseWriter, r *http.Request) {
@@ -31,11 +32,14 @@ func HelloHeader(w http.ResponseWriter, r *http.Request) {
 		s, _ = strconv.Atoi(string(size[0]))
 	}
 
+	fmt.Printf("Write %d bytes\n", s)
+
 	status, ok := r.URL.Query()["status"]
 	sc := 200
 	if ok {
 		sc, _ = strconv.Atoi(string(status[0]))
 	}
+	fmt.Printf("Write Status Code %d\n", sc)
 
 	header := ""
 	for i := 1; i < s; i++ {
